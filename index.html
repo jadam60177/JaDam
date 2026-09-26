@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자담 (JaDam) | 작가 포트폴리오</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <style>
+    :root {
+      --bg-color: #FAF8F5;       /* 은은한 아이보리 */
+      --card-bg: #FFFFFF;        /* 카드 배경 순백색 */
+      --text-main: #242220;      /* 짙은 먹색 본문 */
+      --text-sub: #6E6A65;       /* 부드러운 회색 설명문 */
+      --border-color: #E8E4DE;   /* 옅은 경계선 */
+      --badge-pub-bg: #EAE6DF;   /* 출간작 뱃지 */
+      --badge-pub-text: #4A4640;
+      --badge-contract-bg: #E5ECE8; /* 계약작 은은한 세이지 톤 */
+      --badge-contract-text: #345B47;
+      --point-color: #4A4640;    /* 버튼/포인트 색상 */
+      --tag-bg: #F4F2EE;         /* 키워드 태그 배경 */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 60px 20px 100px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* 상단 프로필 */
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .author-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .author-bio {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      max-width: 500px;
+      margin: 0 auto 24px;
+      word-break: keep-all;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: var(--tag-bg);
+      border-color: var(--text-sub);
+    }
+
+    /* 섹션 공통 */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    @media (min-width: 680px) {
+      .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* 구분선 */
+    .divider {
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 60px 0;
+    }
+
+    /* 작품 카드: 내용 길이에 맞춰 군더더기 없이 단정하게 밀착 */
+    .work-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-top {
+      margin-bottom: 20px;
+    }
+
+.badge {
+      display: inline-block;
+      padding: 6px 14px;        /* 4px 10px -> 5px 12px로 살짝 넉넉하게 */
+      font-size: 0.95rem;         /* 0.75rem -> 0.8rem으로 글자 한 끗 확대 */
+      font-weight: 600;
+      border-radius: 5px;        /* 뱃지 커진 만큼 모서리 둥글기도 4px -> 5px로 */
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .badge.published {
+      background-color: var(--badge-pub-bg);
+      color: var(--badge-pub-text);
+    }
+
+    .badge.contract {
+      background-color: var(--badge-contract-bg);
+      color: var(--badge-contract-text);
+    }
+
+    /* 제목 영역: 1줄/2줄 상관없이 높이 통일 */
+    .work-title {
+     font-size: 1.35rem;        /* 1.15rem -> 1.25rem으로 살짝 확대 */
+      line-height: 1.4;
+      min-height: 2.8em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      word-break: keep-all;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background-color: var(--tag-bg);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .work-desc {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    .card-bottom {
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      background-color: var(--point-color);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: opacity 0.2s ease;
+    }
+
+    .link-btn.disabled {
+      background-color: var(--tag-bg);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 프로필 영역 -->
+    <header>
+      <h1 class="author-name">자담 I JaDam</h1>
+      <p class="author-bio">피폐, 순애, 개그를 아우르며 상업 BL 소설을 씁니다. <br>스핀스핀에 남겨주시는 후기는 가능한 답변해드리고자 합니다. <br> 업무용 문의는 아래의 메일주소로 연락주시길 바랍니다.</p>
+      <div class="contact-links">
+        <a href="mailto:jadam60177@gmail.com" class="contact-btn">✉ jadam60177@gmail.com </a>
+        <a href="https://x.com/jadam60177" target="_blank" class="contact-btn">𝕏 @jadam60177</a>
+<a href="https://spin-spin.com/jadam60177/request" target="_blank" class="contact-btn">& 스핀스핀</a>
+
+      </div>
+    </header>
+
+    <!-- 첫 번째 칸: 출간작 -->
+    <section>
+      <h2 class="section-title">출간작</h2>
+      <div class="work-grid">
+
+        <!-- 출간작 1: 얼음성이 핀 꽃 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge published">단행본 출간</span>
+            <h3 class="work-title">얼음성이 핀 꽃</h3>
+            <div class="tags">
+              <span class="tag">#판타지</span>
+              <span class="tag">#뱀파이어</span>
+              <span class="tag">#다정공</span>
+              <span class="tag">#순진수</span>
+            </div>
+            <p class="work-desc">
+              햇살 한 번 받아본 적 없어 감정이 결여된 남자가 다정한 햇살을 만나 서서히 감겨들며 서로의 구원이자 세상이 되는 이야기
+            </p>
+          </div>
+          <div class="card-bottom">
+            <a href="https://ridibooks.com/books/5653000234" target="_blank" class="link-btn">작품 보러가기 →</a>
+          </div>
+        </article>
+
+        <!-- 출간작 2: 주인공이 극단적으로 치달으면 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge published">단행본 출간</span>
+            <h3 class="work-title">주인공이 극단적으로<br>치달으면</h3>
+            <div class="tags">
+              <span class="tag">#피폐물</span>
+              <span class="tag">#싸패공</span>
+              <span class="tag">#굴림수</span>
+              <span class="tag">#하극상</span>
+            </div>
+            <p class="work-desc">
+              작가가 '완결'이라고 마무리 지은 세계에서, 멈춰버린 주인공이 작가를 소설 속으로 끌어내렸다. 두 사람의 사이는 파멸로 치닫고, 이 이야기의 끝은 대체 어디로 향하는 걸까.
+            </p>
+          </div>
+          <div class="card-bottom">
+            <a href="https://ridibooks.com" target="_blank" class="link-btn">작품 보러가기 →</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 구분선 -->
+    <div class="divider"></div>
+
+    <!-- 두 번째 칸: 출간 예정작 -->
+    <section>
+      <h2 class="section-title">출간 예정작</h2>
+      <div class="work-grid">
+
+     <!-- 예정작 0 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">오메가 북부대공이<br>알파 시장에서 사 온 76번</h3>
+            <div class="tags">
+              <span class="tag">#약피폐</span>
+              <span class="tag">#오메가버스</span>
+              <span class="tag">#역클리셰</span>
+            </div>
+            <p class="work-desc">
+             
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+        <!-- 예정작 1 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">영원이 불러온 늪</h3>
+            <div class="tags">
+              <span class="tag">#피폐물</span>
+              <span class="tag">#인외존재</span>
+              <span class="tag">#다정공</span>
+ <span class="tag">#능력수</span>
+            </div>
+            <p class="work-desc">
+           
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+        <!-- 예정작 2 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">선협 최고 엘리트 코스가<br>내 침실입니까?</h3>
+            <div class="tags">
+              <span class="tag">#개그물</span>
+              <span class="tag">#상식개변</span>
+              <span class="tag">#선협/동양풍</span>
+              <span class="tag">#일공다수</span>
+            </div>
+            <p class="work-desc">
+            
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+        <!-- 예정작 3 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">소꿉친구는 뱀파이어를<br>굶기지 않는다</h3>
+            <div class="tags">
+              <span class="tag">#달달물</span>
+              <span class="tag">#현대물</span>
+              <span class="tag">#소꿉친구</span>
+            </div>
+            <p class="work-desc">
+
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+        <!-- 예정작 4 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">마탑에서 신부를<br>키우는 중입니다</h3>
+            <div class="tags">
+              <span class="tag">#달달물</span>
+              <span class="tag">#판타지</span>
+              <span class="tag">#다정공</span>
+              <span class="tag">#병약수</span>
+            </div>
+            <p class="work-desc">
+       
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+     <!-- 예정작 5 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">현화(玄華)에<br>서리 내릴 때</h3>
+            <div class="tags">
+              <span class="tag">#피폐물</span>
+              <span class="tag">#선협/동양풍</span>
+              <span class="tag">#사제관계</span>
+            </div>
+            <p class="work-desc">
+          
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+     <!-- 예정작 7 -->
+        <article class="work-card">
+          <div class="card-top">
+            <span class="badge contract">계약작</span>
+            <h3 class="work-title">버려진 실험체를<br>다시 줍는 이유</h3>
+            <div class="tags">
+              <span class="tag">#피폐물</span>
+              <span class="tag">#현대물</span>
+              <span class="tag">#냉혈공</span>
+              <span class="tag">#헌신수</span>
+            </div>
+            <p class="work-desc">
+    
+            </p>
+          </div>
+          <div class="card-bottom">
+            <span class="link-btn disabled">오픈 준비 중</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 자담. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
