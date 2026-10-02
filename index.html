@@ -1,436 +1,213 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>자담 (JaDam) | 작가 포트폴리오</title>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-  <style>
-    :root {
-      --bg-color: #FAF8F5;       /* 은은한 아이보리 */
-      --card-bg: #FFFFFF;        /* 카드 배경 순백색 */
-      --text-main: #242220;      /* 짙은 먹색 본문 */
-      --text-sub: #6E6A65;       /* 부드러운 회색 설명문 */
-      --border-color: #E8E4DE;   /* 옅은 경계선 */
-      --badge-pub-bg: #EAE6DF;   /* 출간작 뱃지 */
-      --badge-pub-text: #4A4640;
-      --badge-contract-bg: #E5ECE8; /* 계약작 은은한 세이지 톤 */
-      --badge-contract-text: #345B47;
-      --point-color: #4A4640;    /* 버튼/포인트 색상 */
-      --tag-bg: #F4F2EE;         /* 키워드 태그 배경 */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>자담 (JaDam) | 작가 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F1EA; --card:#FFFDF9; --ink:#25212B; --muted:#7A7280; --line:#E3DBD0;
+  --wine:#8C2F43; --wine-soft:#F1DDE0;
+  --m-dark1:#2B2530; --m-dark2:#6B2436;      /* 피폐 */
+  --m-love1:#F2C4C9; --m-love2:#C9737F;      /* 순애 */
+  --m-fun1:#F3D27A; --m-fun2:#3F8F86;        /* 개그 */
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --paper:#17151B; --card:#211E26; --ink:#EEE8F0; --muted:#A79FAE; --line:#34303B; --wine:#D9788C; --wine-soft:#3A2630; }
+}
+:root[data-theme="dark"]{ --paper:#17151B; --card:#211E26; --ink:#EEE8F0; --muted:#A79FAE; --line:#34303B; --wine:#D9788C; --wine-soft:#3A2630; }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.7}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+.serif{font-family:"Gowun Batang","Nanum Myeongjo",serif}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-    }
+/* 머리말 */
+header{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--line)}
+.name{font-family:"Gowun Batang",serif;font-weight:700;font-size:clamp(2.4rem,6vw,3.6rem);margin:0;letter-spacing:.02em}
+.name small{font-size:.42em;font-weight:400;color:var(--muted);letter-spacing:.18em;margin-left:.6rem;vertical-align:middle}
+.tagline{font-family:"Gowun Batang",serif;font-size:1.15rem;margin:.6rem 0 0}
+.tagline em{font-style:normal;color:var(--wine)}
+.note{color:var(--muted);font-size:.95rem;margin:.2rem 0 1.4rem}
+.contacts{display:flex;flex-wrap:wrap;gap:.5rem}
+.contacts a{text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.45rem 1rem;font-size:.92rem;transition:border-color .2s}
+.contacts a:hover{border-color:var(--wine)}
+.stats{display:flex;gap:2rem;margin-top:2rem;font-family:"Gowun Batang",serif}
+.stats b{display:block;font-size:2rem;line-height:1;color:var(--wine)}
+.stats span{font-size:.85rem;color:var(--muted)}
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 60px 20px 100px;
-    }
+/* 필터 */
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;padding:2rem 0 1rem}
+.bar h2{font-family:"Gowun Batang",serif;margin:0;font-size:1.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:.35rem .95rem;font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:focus-visible,.card:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
 
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-    }
+/* 작품 */
+.section-label{font-family:"Gowun Batang",serif;font-size:1.05rem;color:var(--muted);margin:1.6rem 0 .8rem;display:flex;align-items:center;gap:.6rem}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;cursor:default;transition:transform .2s, box-shadow .2s}
+.card.has-intro{cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(40,25,30,.10)}
+.cover{aspect-ratio:3/4.2;position:relative;display:flex;align-items:flex-end;padding:1.1rem;overflow:hidden}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover .ttl{position:relative;font-family:"Gowun Batang",serif;font-weight:700;font-size:1.25rem;line-height:1.35;word-break:keep-all;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.cover .orn{position:absolute;top:1rem;left:1.1rem;right:1.1rem;display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.2em;opacity:.8}
+.mood-피폐 .cover{background:linear-gradient(160deg,var(--m-dark2),var(--m-dark1));color:#F4E7EA}
+.mood-순애 .cover{background:linear-gradient(160deg,var(--m-love1),var(--m-love2));color:#3A1E25}
+.mood-개그 .cover{background:linear-gradient(160deg,var(--m-fun1),var(--m-fun2));color:#1F2B2A}
+.mood-순애 .cover .ttl,.mood-개그 .cover .ttl{text-shadow:none}
+.cover.real{color:#fff}
+.body{padding:.9rem 1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
+.state{font-size:.78rem;display:inline-flex;gap:.4rem;align-items:center}
+.state i{font-style:normal;padding:.1rem .55rem;border-radius:999px;background:var(--wine-soft);color:var(--wine)}
+.state .soon{color:var(--muted)}
+.title{font-family:"Gowun Batang",serif;font-weight:700;margin:0;font-size:1.05rem;line-height:1.45;word-break:keep-all}
+.tags{display:flex;flex-wrap:wrap;gap:.25rem .45rem;font-size:.8rem;color:var(--muted)}
+.intro{font-size:.9rem;color:var(--ink);max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease, opacity .3s}
+.card.open .intro{max-height:12rem;opacity:1}
+.more{font-size:.78rem;color:var(--muted)}
+.go{margin-top:auto;padding-top:.3rem;font-size:.88rem;color:var(--wine);text-decoration:none;font-weight:700}
+.go:hover{text-decoration:underline}
+.empty{color:var(--muted);padding:2rem 0}
 
-    /* 상단 프로필 */
-    header {
-      text-align: center;
-      margin-bottom: 60px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .author-name {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      color: var(--text-main);
-    }
-
-    .author-bio {
-      font-size: 1.05rem;
-      color: var(--text-sub);
-      max-width: 500px;
-      margin: 0 auto 24px;
-      word-break: keep-all;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      font-size: 0.9rem;
-      color: var(--text-main);
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .contact-btn:hover {
-      background-color: var(--tag-bg);
-      border-color: var(--text-sub);
-    }
-
-    /* 섹션 공통 */
-    .section-title {
-      font-size: 1.35rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 24px;
-      padding-left: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-      margin-bottom: 60px;
-    }
-
-    @media (min-width: 680px) {
-      .work-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* 구분선 */
-    .divider {
-      height: 1px;
-      background-color: var(--border-color);
-      margin: 60px 0;
-    }
-
-    /* 작품 카드: 내용 길이에 맞춰 군더더기 없이 단정하게 밀착 */
-    .work-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      height: auto;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .work-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-    }
-
-    .card-top {
-      margin-bottom: 20px;
-    }
-
-.badge {
-      display: inline-block;
-      padding: 6px 14px;        /* 4px 10px -> 5px 12px로 살짝 넉넉하게 */
-      font-size: 0.95rem;         /* 0.75rem -> 0.8rem으로 글자 한 끗 확대 */
-      font-weight: 600;
-      border-radius: 5px;        /* 뱃지 커진 만큼 모서리 둥글기도 4px -> 5px로 */
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-
-    .badge.published {
-      background-color: var(--badge-pub-bg);
-      color: var(--badge-pub-text);
-    }
-
-    .badge.contract {
-      background-color: var(--badge-contract-bg);
-      color: var(--badge-contract-text);
-    }
-
-    /* 제목 영역: 1줄/2줄 상관없이 높이 통일 */
-    .work-title {
-     font-size: 1.35rem;        /* 1.15rem -> 1.25rem으로 살짝 확대 */
-      line-height: 1.4;
-      min-height: 2.8em;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      color: var(--text-main);
-      word-break: keep-all;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .tag {
-      background-color: var(--tag-bg);
-      color: var(--text-sub);
-      font-size: 0.8rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .work-desc {
-      font-size: 0.95rem;
-      color: var(--text-sub);
-      line-height: 1.6;
-      word-break: keep-all;
-    }
-
-    .card-bottom {
-      border-top: 1px solid var(--border-color);
-      padding-top: 16px;
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 14px;
-      background-color: var(--point-color);
-      color: #FFFFFF;
-      font-size: 0.85rem;
-      font-weight: 500;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: opacity 0.2s ease;
-    }
-
-    .link-btn.disabled {
-      background-color: var(--tag-bg);
-      color: var(--text-sub);
-      border: 1px solid var(--border-color);
-      cursor: default;
-      pointer-events: none;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      margin-top: 40px;
-    }
-  </style>
+footer{margin:4rem 0 2rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+.demo{background:var(--wine-soft);color:var(--ink);font-size:.85rem;padding:.6rem 1rem;text-align:center}
+</style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- 프로필 영역 -->
-    <header>
-      <h1 class="author-name">자담 I JaDam</h1>
-      <p class="author-bio">피폐, 순애, 개그를 아우르며 상업 BL 소설을 씁니다. <br> 업무용 문의는 아래의 메일주소로 연락주시길 바랍니다.</p>
-      <div class="contact-links">
-        <a href="mailto:jadam60177@gmail.com" class="contact-btn">✉ jadam60177@gmail.com </a>
-        <a href="https://x.com/jadam60177" target="_blank" class="contact-btn">𝕏 @jadam60177</a>
-<a href="https://spin-spin.com/jadam60177/request" target="_blank" class="contact-btn">& 스핀스핀</a>
+<div class="wrap">
+  <header>
+    <h1 class="name">자담<small>JaDam</small></h1>
+    <p class="tagline"><em>피폐</em>, <em>순애</em>, <em>개그</em>를 아우르며 상업 BL 소설을 씁니다.</p>
+    <p class="note">업무용 문의는 아래 메일 주소로 연락 주세요.</p>
+    <nav class="contacts" aria-label="연락처">
+      <a href="mailto:jadam60177@gmail.com">✉ jadam60177@gmail.com</a>
+      <a href="https://x.com/jadam60177" target="_blank" rel="noopener">𝕏 @jadam60177</a>
+      <a href="https://spin-spin.com/jadam60177/request" target="_blank" rel="noopener">✦ 스핀스핀</a>
+    </nav>
+    <div class="stats" id="stats"></div>
+  </header>
 
-      </div>
-    </header>
-
-    <!-- 첫 번째 칸: 출간작 -->
-    <section>
-      <h2 class="section-title">출간작</h2>
-      <div class="work-grid">
-
-        <!-- 출간작 1: 얼음성이 핀 꽃 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge published">단행본 출간</span>
-            <h3 class="work-title">얼음성이 핀 꽃</h3>
-            <div class="tags">
-              <span class="tag">#판타지</span>
-              <span class="tag">#뱀파이어</span>
-              <span class="tag">#다정공</span>
-              <span class="tag">#순진수</span>
-            </div>
-            <p class="work-desc">
-            
-            </p>
-          </div>
-          <div class="card-bottom">
-            <a href="https://ridibooks.com/books/5653000234" target="_blank" class="link-btn">작품 보러가기 →</a>
-          </div>
-        </article>
-
-        <!-- 출간작 2: 주인공이 극단적으로 치달으면 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge published">단행본 출간</span>
-            <h3 class="work-title">주인공이 극단적으로<br>치달으면</h3>
-            <div class="tags">
-              <span class="tag">#피폐물</span>
-              <span class="tag">#싸패공</span>
-              <span class="tag">#굴림수</span>
-              <span class="tag">#하극상</span>
-            </div>
-            <p class="work-desc">
-            
-          </div>
-          <div class="card-bottom">
-            <a href="https://ridibooks.com/books/6216000019" target="_blank" class="link-btn">작품 보러가기 →</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- 구분선 -->
-    <div class="divider"></div>
-
-    <!-- 두 번째 칸: 출간 예정작 -->
-    <section>
-      <h2 class="section-title">출간 예정작</h2>
-      <div class="work-grid">
-
-        <!-- 예정작 1 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">영원이 불러온 늪</h3>
-            <div class="tags">
-              <span class="tag">#피폐물</span>
-              <span class="tag">#인외존재</span>
-              <span class="tag">#다정공</span>
- <span class="tag">#능력수</span>
-            </div>
-            <p class="work-desc">
-           
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-        <!-- 예정작 2 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">선협 최고 엘리트 코스가<br>내 침실입니까?</h3>
-            <div class="tags">
-              <span class="tag">#개그물</span>
-              <span class="tag">#상식개변</span>
-              <span class="tag">#선협/동양풍</span>
-              <span class="tag">#일공다수</span>
-            </div>
-            <p class="work-desc">
-            
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-        <!-- 예정작 3 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">소꿉친구는 뱀파이어를<br>굶기지 않는다</h3>
-            <div class="tags">
-              <span class="tag">#달달물</span>
-              <span class="tag">#현대물</span>
-              <span class="tag">#소꿉친구</span>
-            </div>
-            <p class="work-desc">
-
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-        <!-- 예정작 4 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">마탑에서 신부를<br>키우는 중입니다</h3>
-            <div class="tags">
-              <span class="tag">#달달물</span>
-              <span class="tag">#판타지</span>
-              <span class="tag">#다정공</span>
-              <span class="tag">#병약수</span>
-            </div>
-            <p class="work-desc">
-       
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-     <!-- 예정작 5 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">현화(玄華)에<br>서리 내릴 때</h3>
-            <div class="tags">
-              <span class="tag">#피폐물</span>
-              <span class="tag">#선협/동양풍</span>
-              <span class="tag">#사제관계</span>
-            </div>
-            <p class="work-desc">
-          
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-     <!-- 예정작 7 -->
-        <article class="work-card">
-          <div class="card-top">
-            <span class="badge contract">계약작</span>
-            <h3 class="work-title">버려진 실험체를<br>다시 줍는 이유</h3>
-            <div class="tags">
-              <span class="tag">#피폐물</span>
-              <span class="tag">#현대물</span>
-              <span class="tag">#냉혈공</span>
-              <span class="tag">#헌신수</span>
-            </div>
-            <p class="work-desc">
-    
-            </p>
-          </div>
-          <div class="card-bottom">
-            <span class="link-btn disabled">오픈 준비 중</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2025-2026 자담. All rights reserved.</p>
-    </footer>
-
+  <div class="bar">
+    <h2>작품</h2>
+    <div class="chips" role="group" aria-label="분위기로 골라 보기" id="chips"></div>
   </div>
 
+  <main id="works"></main>
+
+  <footer>© 2025–2026 자담. All rights reserved.</footer>
+</div>
+
+<script>
+/* =========================================================
+   작품 목록 고치는 곳
+   ① 구글 시트로 관리하려면 아래 주소 칸에 '웹에 게시(CSV)' 주소를 붙여 넣으세요.
+      시트 첫 줄 제목: 상태 | 제목 | 분위기 | 태그 | 소개 | 링크 | 표지
+   ② 주소를 비워 두거나 시트를 못 불러오면 아래 기본 목록이 보여요.
+   ========================================================= */
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBeON_KPLUA_Fl7iFicCOAV-wddpZwkOCWfiK4rDsbJjGVpU5Euy279Z20BQEwiJKm9m1d1_UwxFuZ/pub?output=csv';
+
+const DEFAULT_WORKS = [
+  { 상태:'출간', 제목:'얼음성이 핀 꽃', 분위기:'순애', 태그:'판타지, 뱀파이어, 다정공, 순진수', 소개:'', 링크:'https://ridibooks.com/books/5653000234', 표지:'' },
+  { 상태:'출간', 제목:'주인공이 극단적으로 치달으면', 분위기:'피폐', 태그:'피폐물, 싸패공, 굴림수, 하극상', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'영원이 불러온 늪', 분위기:'피폐', 태그:'피폐물, 인외존재, 다정공, 능력수', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'선협 최고 엘리트 코스가 내 침실입니까?', 분위기:'개그', 태그:'개그물, 상식개변, 선협/동양풍, 일공다수', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'소꿉친구는 뱀파이어를 굶기지 않는다', 분위기:'순애', 태그:'달달물, 현대물, 소꿉친구', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'마탑에서 신부를 키우는 중입니다', 분위기:'순애', 태그:'달달물, 판타지, 다정공, 병약수', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'현화(玄華)에 서리 내릴 때', 분위기:'피폐', 태그:'피폐물, 선협/동양풍, 사제관계', 소개:'', 링크:'', 표지:'' },
+  { 상태:'계약', 제목:'버려진 실험체를 다시 줍는 이유', 분위기:'피폐', 태그:'피폐물, 현대물, 냉혈공, 헌신수', 소개:'', 링크:'', 표지:'' },
+];
+
+/* ---------- 여기부터는 건드리지 않아도 돼요 ---------- */
+const GROUPS = [
+  {key:'출간', label:'출간작', badge:'단행본 출간'},
+  {key:'연재', label:'연재 중', badge:'연재 중'},
+  {key:'계약', label:'출간 예정작', badge:'계약작', soon:'오픈 준비 중'},
+];
+const MOODS = ['전체','피폐','순애','개그'];
+let WORKS = DEFAULT_WORKS, mood = '전체';
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u||'') ? u : '';
+
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){ cell+='"'; i++; } else q=false; } else cell+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(cell); cell=''; }
+    else if(c==='\n'){ row.push(cell); rows.push(row); row=[]; cell=''; }
+    else if(c!=='\r') cell+=c;
+  }
+  if(cell||row.length){ row.push(cell); rows.push(row); }
+  const head = rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.some(v=>v.trim())).map(r=>Object.fromEntries(head.map((h,i)=>[h,(r[i]||'').trim()])));
+}
+
+function render(){
+  const counts = GROUPS.map(g=>({...g, n: WORKS.filter(w=>w.상태===g.key).length})).filter(g=>g.n);
+  document.getElementById('stats').innerHTML = counts.map(g=>`<div><b>${g.n}</b><span>${g.label}</span></div>`).join('');
+  document.getElementById('chips').innerHTML = MOODS.map(m=>`<button class="chip" data-mood="${m}" aria-pressed="${m===mood}">${m}</button>`).join('');
+  const list = WORKS.filter(w => mood==='전체' || w.분위기===mood);
+  const html = GROUPS.map(g=>{
+    const items = list.filter(w=>w.상태===g.key);
+    if(!items.length) return '';
+    return `<p class="section-label">${g.label}</p><div class="grid">${items.map(w=>card(w,g)).join('')}</div>`;
+  }).join('');
+  document.getElementById('works').innerHTML = html || `<p class="empty">이 분위기의 작품은 아직 준비 중이에요.</p>`;
+}
+
+function card(w, g){
+  const tags = (w.태그||'').split(/[,#]/).map(t=>t.trim()).filter(Boolean);
+  const link = safeUrl(w.링크), cover = safeUrl(w.표지), m = MOODS.includes(w.분위기) ? w.분위기 : '순애';
+  const intro = (w.소개||'').trim();
+  return `<article class="card mood-${m} ${intro?'has-intro':''}" ${intro?'tabindex="0" aria-expanded="false"':''}>
+    <div class="cover ${cover?'real':''}">
+      ${cover ? `<img src="${esc(cover)}" alt="${esc(w.제목)} 표지" loading="lazy">` : `<div class="orn"><span>JADAM</span><span>${esc(m)}</span></div><div class="ttl">${esc(w.제목)}</div>`}
+    </div>
+    <div class="body">
+      <div class="state"><i>${g.badge}</i>${g.soon && !link ? `<span class="soon">${g.soon}</span>`:''}</div>
+      <h3 class="title">${esc(w.제목)}</h3>
+      <div class="tags">${tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</div>
+      ${intro ? `<div class="intro">${esc(intro)}</div><span class="more">눌러서 소개 보기</span>` : ''}
+      ${link ? `<a class="go" href="${esc(link)}" target="_blank" rel="noopener">작품 보러 가기 →</a>` : ''}
+    </div>
+  </article>`;
+}
+
+document.addEventListener('click', e=>{
+  const c = e.target.closest('.chip');
+  if(c){ mood = c.dataset.mood; render(); return; }
+  if(e.target.closest('a')) return;
+  const card = e.target.closest('.card.has-intro');
+  if(card){ const open = card.classList.toggle('open'); card.setAttribute('aria-expanded', open); const m=card.querySelector('.more'); if(m) m.textContent = open ? '접기' : '눌러서 소개 보기'; }
+});
+document.addEventListener('keydown', e=>{
+  if((e.key==='Enter'||e.key===' ') && e.target.classList?.contains('has-intro')){ e.preventDefault(); e.target.click(); }
+});
+
+async function start(){
+  render();
+  if(!SHEET_CSV_URL) return;
+  try{
+    const res = await fetch(SHEET_CSV_URL, {cache:'no-store'});
+    if(!res.ok) throw new Error();
+    const rows = parseCSV(await res.text()).filter(r=>r.제목);
+    if(rows.length){ WORKS = rows; render(); }
+  }catch(e){ /* 못 불러오면 기본 목록 그대로 */ }
+}
+start();
+</script>
 </body>
 </html>
